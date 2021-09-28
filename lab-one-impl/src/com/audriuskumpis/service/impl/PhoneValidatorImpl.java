@@ -2,6 +2,8 @@ package com.audriuskumpis.service.impl;
 
 import com.audriuskumpis.service.PhoneValidator;
 
+import java.util.Objects;
+
 public class PhoneValidatorImpl implements PhoneValidator {
 
     private String phoneNumberPrefix;
@@ -20,6 +22,7 @@ public class PhoneValidatorImpl implements PhoneValidator {
     @Override
     public boolean CheckNumbers(String phone)
     {
+        Objects.requireNonNull(phone);
         if (phone.startsWith("+")) {
             phone = phone.substring(1);
         }
@@ -39,6 +42,7 @@ public class PhoneValidatorImpl implements PhoneValidator {
     @Override
     public String ChangeStart(String phone)
     {
+        Objects.requireNonNull(phone);
         if (phone.startsWith("8")) {
             phone = phone.substring(1);
             phone = phoneNumberPrefix + phone;
@@ -49,6 +53,7 @@ public class PhoneValidatorImpl implements PhoneValidator {
     @Override
     public String AddNewValidationRule(String Prefix, int length)
     {
+        Objects.requireNonNull(Prefix);
         this.phoneNumberPrefix = Prefix;
         this.phoneNumberLength = length;
         return "";
@@ -61,6 +66,7 @@ public class PhoneValidatorImpl implements PhoneValidator {
 
     @Override
     public void setPhoneNumberPrefix(String phoneNumberPrefix) {
+        Objects.requireNonNull(phoneNumberPrefix);
         this.phoneNumberPrefix = phoneNumberPrefix;
     }
 
@@ -71,6 +77,9 @@ public class PhoneValidatorImpl implements PhoneValidator {
 
     @Override
     public void setPhoneNumberLength(int phoneNumberLength) {
+        if (phoneNumberLength < 1) {
+            throw new AssertionError("length must be positive non-zero integer");
+        }
         this.phoneNumberLength = phoneNumberLength;
     }
 }

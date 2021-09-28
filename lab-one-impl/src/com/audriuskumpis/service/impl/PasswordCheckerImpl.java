@@ -35,6 +35,7 @@ public class PasswordCheckerImpl implements PasswordChecker {
     @Override
     public boolean CheckPasswordLength(String password, int length)
     {
+        Objects.requireNonNull(password);
         if (length <= 0) {
             throw new IllegalArgumentException("Password length must be positive number.");
         }
@@ -44,12 +45,14 @@ public class PasswordCheckerImpl implements PasswordChecker {
     @Override
     public boolean CheckUppercase(String password)
     {
+        Objects.requireNonNull(password);
         return hasUppercase(password);
     }
 
     @Override
     public boolean CheckSpecialSymbol(String password)
     {
+        Objects.requireNonNull(password);
         return hasSpecialChar(password);
     }
 
@@ -60,6 +63,7 @@ public class PasswordCheckerImpl implements PasswordChecker {
 
     @Override
     public void setSpecialChars(String[] specialChars) {
+        Objects.requireNonNull(specialChars);
         this.specialChars = specialChars;
     }
 
